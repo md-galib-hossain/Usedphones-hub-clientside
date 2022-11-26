@@ -17,14 +17,18 @@ const SingleCategory = () => {
             <p>Condition : {product?.condition}</p>
             <p>Used for : {product?.used}</p>
             <p className="text-lg font-semibold ">
-              Orginal Price : {product?.orginalprice}
+              Orginal Price : ${product?.orginalprice}
             </p>
             <p className="text-lg font-semibold ">
-              Resell Price : {product?.resaleprice}
+              Resell Price : ${product?.resaleprice}
+            </p>
+            <p className="text-lg font-semibold ">
+              Sellername : {product?.sellername}
             </p>
             <p className="text-sm font-semibold  ">
               Location {product?.location}
             </p>
+            {/* kon din post kora hoise shei date dite hobe */}
             <div className="card-actions  w-full">
               <Link className="btn w-full btn-error">Book Now</Link>
               <Link className="btn w-full btn-outline ">Report to Admin</Link>
