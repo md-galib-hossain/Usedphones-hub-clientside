@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../context/AuthProvider";
 
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
+  const [loginError, setLoginError] = useState("");
   // react hook form
   const {
     register,
@@ -11,7 +14,16 @@ const Login = () => {
     handleSubmit,
   } = useForm();
   const handleLogin = (data) => {
-    console.log(data);
+    setLoginError("");
+    signIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setLoginError(error.message);
+      });
   };
   return (
     <div className="h-[600px] flex justify-center items-center">
@@ -61,6 +73,7 @@ const Login = () => {
             className="btn mt-3 btn-outline  w-full"
             value="Login with Google"
           />
+          <div>{loginError && <p>{loginError}</p>}</div>
         </form>
       </div>
     </div>
