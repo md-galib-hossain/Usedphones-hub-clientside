@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const SingleCategory = () => {
   const products = useLoaderData();
@@ -25,10 +25,9 @@ const SingleCategory = () => {
             <p className="text-sm font-semibold  ">
               Location {product?.location}
             </p>
-            <div className="card-actions w-full">
-              <button className="btn btn-primary w-full btn-error">
-                Book Now
-              </button>
+            <div className="card-actions  w-full">
+              <Link className="btn w-full btn-error">Book Now</Link>
+              <Link className="btn w-full btn-outline ">Report to Admin</Link>
             </div>
           </div>
         </div>

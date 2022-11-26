@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthProvider";
@@ -7,17 +7,41 @@ import { AuthContext } from "../../context/AuthProvider";
 const Signup = () => {
   const { createUser } = useContext(AuthContext);
 
+  // login er por kothay jaite hobe ta set kora
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   // react hook form
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const handleSignup = (data) => {
-    createUser(data.email, data.password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
+  const handleSignup = (data, event) => {
+    createUser(data.email, data.password).then((result) => {
+      const user = result.user;
+
+      navigate(from, { replace: true });
+    });
+    const user = {
+      name: data.name,
+      email: data.email,
+      usertype: data.usertype,
+    };
+    // sending user details to backend
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          //   toast("You books have been added");
+        }
       })
       .catch((error) => console.log(error));
   };
