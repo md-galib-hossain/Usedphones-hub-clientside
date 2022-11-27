@@ -12,7 +12,7 @@ const Home = () => {
         <h2 className="text-3xl my-8 font-bold">Categories</h2>
         <div className="grid lg:grid-cols-3 place-items-center gap-4 ">
           {categories.map((category) => (
-            <div className="card w-96 bg-primary text-primary-content">
+            <div className="card w-96 bg-error text-primary-content">
               <div className="card-body">
                 <h2 className="card-title justify-center my-2">
                   {category.brand}

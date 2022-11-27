@@ -1,10 +1,21 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
+
+  // query
+  const { data: loadedUser = [] } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:5000/users`);
+      const data = await res.json();
+      return data;
+    },
+  });
+  // console.log(loadedUser);
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -35,7 +46,7 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <Link to="">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
               <Link to="/blog">Blog</Link>
@@ -53,27 +64,39 @@ const Navbar = () => {
             )}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl">
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
           UsedPhones Hub
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal p-0">
+        <ul className="menu menu-horizontal px-0 gap-2">
           <li>
-            <Link to="">Home</Link>
+            <Link className="btn btn-ghost rounded-lg " to="/">
+              Home
+            </Link>
           </li>
           <li>
-            <Link to="/blog">Blog</Link>
+            <Link className="btn btn-ghost" to="/blog">
+              Blog
+            </Link>
           </li>
           {user?.uid ? (
             <li>
-              <Link onClick={handleLogOut} className="btn btn-outline">
+              <Link
+                onClick={handleLogOut}
+                className="btn btn-outline btn-error rounded-lg"
+              >
                 Signout
               </Link>
             </li>
           ) : (
             <li>
-              <Link to="/login">Login</Link>
+              <Link
+                className="btn btn-outline btn-error rounded-lg"
+                to="/login"
+              >
+                Login
+              </Link>
             </li>
           )}
         </ul>

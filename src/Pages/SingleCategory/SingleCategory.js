@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../context/AuthProvider";
 
 const SingleCategory = () => {
   const products = useLoaderData();
-  console.log(products);
+  const { user } = useContext(AuthContext);
+  console.log(products, user);
   return (
     <div className="grid lg:grid-cols-3 place-items-center my-5 ">
       {products.map((product) => (
@@ -29,6 +31,7 @@ const SingleCategory = () => {
               Location {product?.location}
             </p>
             {/* kon din post kora hoise shei date dite hobe */}
+            {/* seller verified ki na dekha jabe */}
             <div className="card-actions  w-full">
               <Link className="btn w-full btn-error">Book Now</Link>
               <Link className="btn w-full btn-outline ">Report to Admin</Link>

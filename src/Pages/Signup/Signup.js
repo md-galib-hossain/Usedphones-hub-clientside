@@ -3,9 +3,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthProvider";
+import toast from "react-hot-toast";
 
 const Signup = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUser } = useContext(AuthContext);
 
   // login er por kothay jaite hobe ta set kora
   const navigate = useNavigate();
@@ -17,12 +18,23 @@ const Signup = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const handleSignup = (data, event) => {
+  const [signupError, setSignupError] = useState("");
+  const handleSignup = (data) => {
+    setSignupError("");
     createUser(data.email, data.password).then((result) => {
       const user = result.user;
+      toast("User Created Successfully");
+      // updating user name
+      const userInfo = {
+        displayName: data.name,
+      };
+      updateUser(userInfo)
+        .then(() => {})
+        .catch((err) => console.log(err));
 
       navigate(from, { replace: true });
     });
+
     const user = {
       name: data.name,
       email: data.email,
@@ -39,11 +51,11 @@ const Signup = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.acknowledged) {
-          //   toast("You books have been added");
-        }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setSignupError(error.message);
+        console.log(signupError);
+      });
   };
 
   return (
@@ -76,11 +88,6 @@ const Signup = () => {
               {...register("name")}
               className="input input-bordered w-full max-w-xs input-error"
             />
-            {errors.name && (
-              <p className="text-left text-red-500" role="alert">
-                {errors.name?.message}
-              </p>
-            )}
           </div>
 
           {/* email */}

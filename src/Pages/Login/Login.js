@@ -4,9 +4,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, providerLogin, user } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
   // login er por kothay jaite hobe ta set kora
   const navigate = useNavigate();
@@ -19,6 +20,37 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  // login with google
+  const googleProvider = new GoogleAuthProvider();
+  //   Get user information by google signin
+
+  const handleGoogleSignIn = () => {
+    providerLogin(googleProvider).then((result) => {
+      const user = result.user;
+      console.log(user);
+      navigate(from, { replace: true });
+      // user object
+      const userinfo = {
+        name: user.displayName,
+        email: user.email,
+        usertype: "Buyer",
+      };
+      // sending user details to backend
+      fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userinfo),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+        })
+        .catch((error) => console.log(error));
+    });
+  };
+  // email and pass login
   const handleLogin = (data) => {
     setLoginError("");
     signIn(data.email, data.password)
@@ -76,6 +108,7 @@ const Login = () => {
 
           <input className="btn btn-error w-full" value="Login" type="submit" />
           <input
+            onClick={handleGoogleSignIn}
             className="btn mt-3 btn-outline  w-full"
             value="Login with Google"
           />

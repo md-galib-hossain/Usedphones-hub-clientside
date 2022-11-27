@@ -11,7 +11,7 @@ const PrivateRoute = ({ children }) => {
   // location where user wanted to go before authenticate
   const location = useLocation();
   if (loading) {
-    return <Spinner animation="border" variant="warning" />;
+    return <progress className="progress w-56"></progress>;
   }
   if (!user) {
     // rediret user to the router they wanted to go before login
