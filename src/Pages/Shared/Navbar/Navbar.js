@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -7,15 +8,28 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
   // query
-  const { data: loadedUser = [] } = useQuery({
-    queryKey: ["user"],
+  // const { data: loadedUser = [] } = useQuery({
+  //   queryKey: ["user"],
+  //   queryFn: async () => {
+  //     const res = await fetch(`http://localhost:5000/users`);
+  //     const data = await res.json();
+  //     return data;
+  //   },
+  // });
+
+  // specific user by query
+  const url = `http://localhost:5000/user?email=${user?.email}`;
+  const { data: dbUser = [] } = useQuery({
+    queryKey: ["user", user?.email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users`);
+      const res = await fetch(url);
       const data = await res.json();
       return data;
     },
   });
-  // console.log(loadedUser);
+  const loadedUser = dbUser[0]?.email;
+  const loadedUserType = dbUser[0]?.usertype;
+  console.log(loadedUser, loadedUserType);
   const handleLogOut = () => {
     logOut()
       .then(() => {})
