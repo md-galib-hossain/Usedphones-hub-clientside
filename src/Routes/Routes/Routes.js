@@ -5,6 +5,7 @@ import Blog from "../../Pages/Blog/Blog";
 import BuyerDashboard from "../../Pages/BuyerDashboard/BuyerDashboard";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import PageNotFound from "../../Pages/PageNotFound/PageNotFound";
 import SellerDashboard from "../../Pages/SellerDashboard/SellerDashboard";
 import Signup from "../../Pages/Signup/Signup";
 import SingleCategory from "../../Pages/SingleCategory/SingleCategory";
@@ -56,4 +57,5 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  { path: "*", element: <PageNotFound></PageNotFound> },
 ]);

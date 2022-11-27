@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
@@ -19,10 +18,10 @@ const SingleCategory = () => {
             <p>Condition : {product?.condition}</p>
             <p>Used for : {product?.used}</p>
             <p className="text-lg font-semibold ">
-              Orginal Price : ${product?.orginalprice}
+              Orginal Price : BDT{product?.orginalprice}
             </p>
             <p className="text-lg font-semibold ">
-              Resell Price : ${product?.resaleprice}
+              Resell Price : BDT{product?.resaleprice}
             </p>
             <p className="text-lg font-semibold ">
               Sellername : {product?.sellername}

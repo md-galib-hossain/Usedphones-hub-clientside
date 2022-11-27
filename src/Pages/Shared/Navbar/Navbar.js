@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
-
+  const { user, logOut, loading } = useContext(AuthContext);
+  // console.log(user?.displayName);
   // query
   // const { data: loadedUser = [] } = useQuery({
   //   queryKey: ["user"],
@@ -19,7 +19,7 @@ const Navbar = () => {
 
   // specific user by query
   const url = `http://localhost:5000/user?email=${user?.email}`;
-  const { data: dbUser = [] } = useQuery({
+  const { data: dbUser = [], isLoading } = useQuery({
     queryKey: ["user", user?.email],
     queryFn: async () => {
       const res = await fetch(url);
@@ -27,9 +27,12 @@ const Navbar = () => {
       return data;
     },
   });
+  // if (loading || isLoading) {
+  //   return <progress className="progress w-56"></progress>;
+  // }
   const loadedUser = dbUser[0]?.email;
   const loadedUserType = dbUser[0]?.usertype;
-  console.log(loadedUser, loadedUserType);
+
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -87,11 +90,14 @@ const Navbar = () => {
               <Link to="/blog">Blog</Link>
             </li>
             {user?.uid ? (
-              <li>
-                <Link onClick={handleLogOut} className="btn btn-outline">
-                  Signout
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link onClick={handleLogOut} className="btn btn-outline">
+                    Signout
+                  </Link>
+                </li>
+                <span className="userName">{user?.displayName}</span>
+              </>
             ) : (
               <li>
                 <Link to="/login">Login</Link>
@@ -141,14 +147,25 @@ const Navbar = () => {
             </Link>
           </li>
           {user?.uid ? (
-            <li>
-              <Link
-                onClick={handleLogOut}
-                className="btn btn-outline btn-error rounded-lg"
-              >
-                Signout
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link
+                  onClick={handleLogOut}
+                  className="btn btn-outline btn-error rounded-lg"
+                >
+                  Signout
+                </Link>
+              </li>
+              {user?.displayName ? (
+                <li>
+                  <p className="btn-disabled rounded-lg">{user?.displayName}</p>
+                </li>
+              ) : (
+                <li>
+                  <p className="btn-disabled rounded-lg">Unknown</p>
+                </li>
+              )}
+            </>
           ) : (
             <li>
               <Link
