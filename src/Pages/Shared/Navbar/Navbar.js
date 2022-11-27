@@ -62,6 +62,27 @@ const Navbar = () => {
             <li>
               <Link to="/">Home</Link>
             </li>
+            {loadedUserType == "Buyer" && (
+              <li>
+                <Link to={"/buyerdashboard"} className="">
+                  Dashboard
+                </Link>
+              </li>
+            )}
+            {loadedUserType == "Seller" && (
+              <li>
+                <Link to={"/sellerdashboard"} className="">
+                  Dashboard
+                </Link>
+              </li>
+            )}
+            {loadedUserType == "Admin" && (
+              <li>
+                <Link to={"/admindashboard"} className="">
+                  Dashboard
+                </Link>
+              </li>
+            )}
             <li>
               <Link to="/blog">Blog</Link>
             </li>
@@ -89,6 +110,31 @@ const Navbar = () => {
               Home
             </Link>
           </li>
+          {loadedUserType == "Buyer" && (
+            <li>
+              <Link to={"/buyerdashboard"} className="btn btn-ghost rounded-lg">
+                Dashboard
+              </Link>
+            </li>
+          )}
+          {loadedUserType == "Seller" && (
+            <li>
+              <Link
+                to={"/sellerdashboard"}
+                className="btn btn-ghost rounded-lg"
+              >
+                Dashboard
+              </Link>
+            </li>
+          )}
+          {loadedUserType == "Admin" && (
+            <li>
+              <Link to={"/admindashboard"} className="btn btn-ghost rounded-lg">
+                Dashboard
+              </Link>
+            </li>
+          )}
+
           <li>
             <Link className="btn btn-ghost" to="/blog">
               Blog
