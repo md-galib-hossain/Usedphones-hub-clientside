@@ -4,6 +4,7 @@ import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../../context/AuthProvider";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Addproduct = () => {
   // react hook form
@@ -22,26 +23,41 @@ const Addproduct = () => {
 
   const handlemyform = (data) => {
     setData(data);
+    const product = {
+      idno: data?.productid,
+      brand: data?.brandname,
+      name: data?.devicename,
+      picture: data.imagelink,
+      location: data?.productlocation,
+      resaleprice: data?.askprice,
+      orginalprice: data?.newprice,
+      used: data?.usedperiod,
+      condition: data?.productcondition,
+      sellername: loadedUser?.name,
+      email: loadedUser?.email,
+      isbooked: "no",
+      ispaid: "no",
+      date: date,
+      status: "available",
+    };
+    fetch("http://localhost:5000/addproduct", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(product),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast("You books have been added");
+        }
+      })
+
+      .catch((er) => console.error(er));
   };
 
-  //   value dissi
-  const product = {
-    idno: data?.productid,
-    brand: data?.brandname,
-    name: data?.devicename,
-    picture: data.imagelink,
-    location: data?.productlocation,
-    resaleprice: data?.askprice,
-    orginalprice: data?.newprice,
-    used: data?.usedperiod,
-    condition: data?.productcondition,
-    sellername: loadedUser?.name,
-    email: loadedUser?.email,
-    isbooked: "no",
-    ispaid: "no",
-    date: date,
-  };
-  console.log(product);
   return (
     <div className=" flex justify-center items-center">
       <div className="w-8/12 p-7 ">
@@ -91,8 +107,8 @@ const Addproduct = () => {
                 <span className="label-text">Image link</span>
               </label>
               <input
-                type="file"
-                {...register("imagelink", { required: true })}
+                type="text"
+                {...register("imagelink")}
                 className="file-input file-input-bordered file-input-error w-full max-w-xs input-error"
               />
             </div>

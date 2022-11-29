@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const SellerDashboard = () => {
   const { user, loading } = useContext(AuthContext);
@@ -18,6 +19,29 @@ const SellerDashboard = () => {
         console.log(loadedproducts);
       });
   }, [user?.email]);
+
+  // Deleting product
+  const handleDelete = (loadedproduct) => {
+    const agree = window.confirm(
+      `are you confirm to delete: ${loadedproduct?.name}`
+    );
+    if (agree) {
+      // sending data to server
+      fetch(`http://localhost:5000/delete/${loadedproduct?._id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            toast("Product deleted successfuly");
+            const remainingproducts = loadedproducts.filter(
+              (bk) => bk._id != loadedproduct._id
+            );
+            SetLoadedproducts(remainingproducts);
+          }
+        });
+    }
+  };
 
   if (loading) {
     return <progress className="progress w-56"></progress>;
@@ -58,7 +82,12 @@ const SellerDashboard = () => {
               {/* kon din post kora hoise shei date dite hobe */}
               {/* seller verified ki na dekha jabe */}
               <div className="card-actions  w-full">
-                <Link className="btn w-full btn-error">Delete Product</Link>
+                <Link
+                  onClick={() => handleDelete(loadedproduct)}
+                  className="btn w-full btn-error"
+                >
+                  Delete Product
+                </Link>
 
                 <Link className="btn w-full btn-outline ">Advertise</Link>
               </div>
