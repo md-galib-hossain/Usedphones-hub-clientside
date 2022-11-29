@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
+import BookingModal from "./BookingModal";
 
 const SingleCategory = () => {
   const products = useLoaderData();
-  const { user } = useContext(AuthContext);
-  console.log(products, user);
+  const { loadedUser } = useContext(AuthContext);
+  const [book, setBook] = useState(null);
+
   return (
     <div className="grid lg:grid-cols-3 place-items-center my-5 ">
       {products.map((product) => (
@@ -32,12 +34,19 @@ const SingleCategory = () => {
             {/* kon din post kora hoise shei date dite hobe */}
             {/* seller verified ki na dekha jabe */}
             <div className="card-actions  w-full">
-              <Link className="btn w-full btn-error">Book Now</Link>
+              <label
+                onClick={() => setBook(product)}
+                htmlFor="booking-modal"
+                className="btn w-full btn-error"
+              >
+                Book Now
+              </label>
               <Link className="btn w-full btn-outline ">Report to Admin</Link>
             </div>
           </div>
         </div>
       ))}
+      <BookingModal loadedUser={loadedUser} book={book}></BookingModal>
     </div>
   );
 };

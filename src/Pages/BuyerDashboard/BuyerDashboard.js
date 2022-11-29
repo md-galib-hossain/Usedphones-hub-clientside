@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthProvider";
 const BuyerDashboard = () => {
   const { user, loading } = useContext(AuthContext);
   //   load booked items by email query
-  const url = `http://localhost:5000/bookeditems?email=${user?.email}`;
+  const url = `http://localhost:5000/bookeditems?bookedemail=${user?.email}`;
   const { data: bookedItems = [], isLoading } = useQuery({
     queryKey: ["booked", user?.email],
     queryFn: async () => {

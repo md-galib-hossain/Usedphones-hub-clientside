@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const Navbar = () => {
-  const { user, logOut, loading } = useContext(AuthContext);
+  const { user, logOut, loading, loadedUser } = useContext(AuthContext);
   // console.log(user?.displayName);
   // query
   // const { data: loadedUser = [] } = useQuery({
@@ -18,20 +18,22 @@ const Navbar = () => {
   // });
 
   // specific user by query
-  const url = `http://localhost:5000/user?email=${user?.email}`;
-  const { data: dbUser = [], isLoading } = useQuery({
-    queryKey: ["user", user?.email],
-    queryFn: async () => {
-      const res = await fetch(url);
-      const data = await res.json();
-      return data;
-    },
-  });
-  // if (loading || isLoading) {
-  //   return <progress className="progress w-56"></progress>;
-  // }
-  const loadedUser = dbUser[0]?.email;
-  const loadedUserType = dbUser[0]?.usertype;
+  // const url = `http://localhost:5000/user?email=${user?.email}`;
+  // const { data: dbUser = [], isLoading } = useQuery({
+  //   queryKey: ["user", user?.email],
+  //   queryFn: async () => {
+  //     const res = await fetch(url);
+  //     const data = await res.json();
+  //     return data;
+  //   },
+  // });
+  // // if (loading || isLoading) {
+  // //   return <progress className="progress w-56"></progress>;
+  // // }
+  // const loadedUser = dbUser[0]?.email;
+  // const loadedUserType = dbUser[0]?.usertype;
+  // console.log(loadedUser);
+  const loadedUserType = loadedUser?.usertype;
 
   const handleLogOut = () => {
     logOut()

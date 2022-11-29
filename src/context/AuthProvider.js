@@ -9,6 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebase.config";
+import { useQuery } from "@tanstack/react-query";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -55,6 +56,21 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  // load user from db
+  const url = `http://localhost:5000/user?email=${user?.email}`;
+  const { data: dbUser = [], isLoading } = useQuery({
+    queryKey: ["user", user?.email],
+    queryFn: async () => {
+      const res = await fetch(url);
+      const data = await res.json();
+      return data;
+    },
+  });
+  // if (loading || isLoading) {
+  //   return <progress className="progress w-56"></progress>;
+  // }
+  const loadedUser = dbUser[0];
+
   const authInfo = {
     createUser,
     signIn,
@@ -63,6 +79,7 @@ const AuthProvider = ({ children }) => {
     loading,
     updateUser,
     providerLogin,
+    loadedUser,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
