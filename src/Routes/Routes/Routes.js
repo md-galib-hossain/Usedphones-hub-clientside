@@ -6,6 +6,7 @@ import BuyerDashboard from "../../Pages/BuyerDashboard/BuyerDashboard";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import PageNotFound from "../../Pages/PageNotFound/PageNotFound";
+import Payment from "../../Pages/Payment/Payment";
 import SellerDashboard from "../../Pages/SellerDashboard/SellerDashboard";
 import Signup from "../../Pages/Signup/Signup";
 import SingleCategory from "../../Pages/SingleCategory/SingleCategory";
@@ -44,6 +45,12 @@ export const router = createBrowserRouter([
       {
         path: "/admindashboard",
         element: <AdminDashboard></AdminDashboard>,
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment></Payment>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/dashboard/payment/${params.id}`),
       },
       {
         path: "/category/:id",

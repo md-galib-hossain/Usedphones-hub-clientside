@@ -32,6 +32,7 @@ const BookingModal = ({ book, loadedUser, setBook }) => {
       sellername: book?.sellername,
       condition: book?.condition,
       location: book?.location,
+      ispaid: "no",
     };
     // send book item to backend
 

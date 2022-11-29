@@ -53,9 +53,16 @@ const BuyerDashboard = () => {
               {/* kon din post kora hoise shei date dite hobe */}
               {/* seller verified ki na dekha jabe */}
               <div className="card-actions  w-full">
-                <Link to={bookedItem?._id} className="btn w-full btn-error">
-                  Pay Now
-                </Link>
+                {bookedItem?.ispaid == "no" ? (
+                  <Link
+                    to={`/dashboard/payment/${bookedItem?._id}`}
+                    className="btn w-full btn-error"
+                  >
+                    Pay Now
+                  </Link>
+                ) : (
+                  <Link className="btn w-full btn-success">Already Paid</Link>
+                )}
                 <Link className="btn w-full btn-outline ">Report to Admin</Link>
               </div>
             </div>
