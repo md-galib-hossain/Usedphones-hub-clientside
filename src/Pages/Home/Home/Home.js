@@ -5,6 +5,7 @@ import Brands from "../../Brands/Brands";
 
 const Home = () => {
   const categories = useLoaderData();
+
   return (
     <div>
       <Banner></Banner>
@@ -19,7 +20,7 @@ const Home = () => {
                 </h2>
 
                 <div className="card-actions justify-center">
-                  <Link to={`/category/${category.idno}`} className="btn">
+                  <Link to={`/category/${category?.idno}`} className="btn">
                     Watch Phones
                   </Link>
                 </div>

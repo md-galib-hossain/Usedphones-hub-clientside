@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -7,18 +7,28 @@ import { Link } from "react-router-dom";
 const SellerDashboard = () => {
   const { user, loading } = useContext(AuthContext);
   const [loadedproducts, SetLoadedproducts] = useState([]);
-  //   load booked items by email query
-  axios
-    .get(`http://localhost:5000/products?email=${user?.email}`)
-    .then((data) => {
-      const products = data.data;
-      console.log(products);
-      SetLoadedproducts(products);
-    });
+  //   load my products by email query
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/products?email=${user?.email}`)
+      .then((data) => {
+        const products = data.data;
+
+        SetLoadedproducts(products);
+        console.log(loadedproducts);
+      });
+  }, [user?.email]);
+
+  if (loading) {
+    return <progress className="progress w-56"></progress>;
+  }
 
   return (
     <div className="my-3">
-      <button className="btn btn-wide">My Products</button>
+      <Link to="/addproduct" className="btn btn-outline btn-wide  ">
+        Add Product
+      </Link>
+      <h1 className="text-2xl font-bold">My Products</h1>
       <div className="grid lg:grid-cols-3 place-items-center my-5 ">
         {loadedproducts.map((loadedproduct) => (
           <div className="card w-96 bg-base-100 shadow-xl">
@@ -48,17 +58,9 @@ const SellerDashboard = () => {
               {/* kon din post kora hoise shei date dite hobe */}
               {/* seller verified ki na dekha jabe */}
               <div className="card-actions  w-full">
-                {loadedproduct?.ispaid == "no" ? (
-                  <Link
-                    to={`/dashboard/payment/${loadedproduct?._id}`}
-                    className="btn w-full btn-error"
-                  >
-                    Pay Now
-                  </Link>
-                ) : (
-                  <Link className="btn w-full btn-success">Already Paid</Link>
-                )}
-                <Link className="btn w-full btn-outline ">Report to Admin</Link>
+                <Link className="btn w-full btn-error">Delete Product</Link>
+
+                <Link className="btn w-full btn-outline ">Advertise</Link>
               </div>
             </div>
           </div>

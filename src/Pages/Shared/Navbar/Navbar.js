@@ -98,7 +98,7 @@ const Navbar = () => {
                     Signout
                   </Link>
                 </li>
-                <span className="userName">{user?.displayName}</span>
+                <span className="userName">{loadedUser?.name}</span>
               </>
             ) : (
               <li>
@@ -158,9 +158,9 @@ const Navbar = () => {
                   Signout
                 </Link>
               </li>
-              {user?.displayName ? (
+              {loadedUser?.name ? (
                 <li>
-                  <p className="btn-disabled rounded-lg">{user?.displayName}</p>
+                  <p className="btn-disabled rounded-lg">{loadedUser?.name}</p>
                 </li>
               ) : (
                 <li>
