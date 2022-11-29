@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
@@ -5,8 +6,20 @@ import BookingModal from "./BookingModal";
 
 const SingleCategory = () => {
   const products = useLoaderData();
-  const { loadedUser } = useContext(AuthContext);
+  const { loadedUser, user } = useContext(AuthContext);
   const [book, setBook] = useState(null);
+
+  //   load booked items by email query
+  const url = `http://localhost:5000/bookeditems?bookedemail=${user?.email}`;
+  const { data: bookedItems = [], isLoading } = useQuery({
+    queryKey: ["addbooked", user?.email],
+    queryFn: async () => {
+      const res = await fetch(url);
+      const booked = await res.json();
+      // console.log(booked);
+      return booked;
+    },
+  });
 
   return (
     <div className="grid lg:grid-cols-3 place-items-center my-5 ">
@@ -46,7 +59,13 @@ const SingleCategory = () => {
           </div>
         </div>
       ))}
-      <BookingModal loadedUser={loadedUser} book={book}></BookingModal>
+      {book && (
+        <BookingModal
+          setBook={setBook}
+          loadedUser={loadedUser}
+          book={book}
+        ></BookingModal>
+      )}
     </div>
   );
 };
