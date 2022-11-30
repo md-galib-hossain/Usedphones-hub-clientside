@@ -23,7 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch(" http://localhost:5000/category"),
+        loader: () =>
+          fetch(
+            " https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/category"
+          ),
       },
       {
         path: "/login",
@@ -61,12 +64,22 @@ export const router = createBrowserRouter([
             <AdminDashboard></AdminDashboard>
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:5000/sellers"),
+        loader: () =>
+          fetch(
+            "https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/sellers"
+          ),
       },
       {
         path: "/allbuyers",
-        element: <Allbuyers></Allbuyers>,
-        loader: () => fetch(" http://localhost:5000/buyers"),
+        element: (
+          <PrivateRoute>
+            <Allbuyers></Allbuyers>
+          </PrivateRoute>
+        ),
+        loader: () =>
+          fetch(
+            " https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/buyers"
+          ),
       },
       {
         path: "/dashboard/payment/:id",
@@ -76,7 +89,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/dashboard/payment/${params.id}`),
+          fetch(
+            `https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/dashboard/payment/${params.id}`
+          ),
       },
       {
         path: "/category/:id",
@@ -86,7 +101,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(` http://localhost:5000/category/${params.id}`),
+          fetch(
+            ` https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/category/${params.id}`
+          ),
       },
       {
         path: "/addproduct",

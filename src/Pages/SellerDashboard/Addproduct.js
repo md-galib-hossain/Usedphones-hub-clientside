@@ -40,14 +40,19 @@ const Addproduct = () => {
       ispaid: "no",
       date: date,
       status: "available",
+      isadvertised: "no",
+      isreported: "no",
     };
-    fetch("http://localhost:5000/addproduct", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(product),
-    })
+    fetch(
+      "https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/addproduct",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(product),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

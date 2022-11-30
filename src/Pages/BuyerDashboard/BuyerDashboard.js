@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthProvider";
 const BuyerDashboard = () => {
   const { user, loading } = useContext(AuthContext);
   //   load booked items by email query
-  const url = `http://localhost:5000/bookeditems?bookedemail=${user?.email}`;
+  const url = `https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/bookeditems?bookedemail=${user?.email}`;
   const { data: bookedItems = [], isLoading } = useQuery({
     queryKey: ["booked", user?.email],
     queryFn: async () => {
@@ -61,7 +61,9 @@ const BuyerDashboard = () => {
                     Pay Now
                   </Link>
                 ) : (
-                  <Link className="btn w-full btn-success">Already Paid</Link>
+                  <Link disabled className="btn w-full btn-success">
+                    Already Paid
+                  </Link>
                 )}
                 <Link className="btn w-full btn-outline ">Report to Admin</Link>
               </div>

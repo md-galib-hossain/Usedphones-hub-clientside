@@ -6,33 +6,7 @@ import { AuthContext } from "../../../context/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut, loading, loadedUser } = useContext(AuthContext);
-  // console.log(user?.displayName);
-  // query
-  // const { data: loadedUser = [] } = useQuery({
-  //   queryKey: ["user"],
-  //   queryFn: async () => {
-  //     const res = await fetch(`http://localhost:5000/users`);
-  //     const data = await res.json();
-  //     return data;
-  //   },
-  // });
 
-  // specific user by query
-  // const url = `http://localhost:5000/user?email=${user?.email}`;
-  // const { data: dbUser = [], isLoading } = useQuery({
-  //   queryKey: ["user", user?.email],
-  //   queryFn: async () => {
-  //     const res = await fetch(url);
-  //     const data = await res.json();
-  //     return data;
-  //   },
-  // });
-  // // if (loading || isLoading) {
-  // //   return <progress className="progress w-56"></progress>;
-  // // }
-  // const loadedUser = dbUser[0]?.email;
-  // const loadedUserType = dbUser[0]?.usertype;
-  // console.log(loadedUser);
   const loadedUserType = loadedUser?.usertype;
 
   const handleLogOut = () => {
@@ -114,7 +88,7 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-0 gap-2">
           <li>
-            <Link className="btn btn-ghost rounded-lg " to="/">
+            <Link to="/" className="btn btn-ghost rounded-lg ">
               Home
             </Link>
           </li>

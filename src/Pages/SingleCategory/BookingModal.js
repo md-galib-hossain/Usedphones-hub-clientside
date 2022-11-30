@@ -36,13 +36,16 @@ const BookingModal = ({ book, loadedUser, setBook }) => {
     };
     // send book item to backend
 
-    fetch("http://localhost:5000/addbooked", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(booked),
-    })
+    fetch(
+      "https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/addbooked",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(booked),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         // setBookeditemname(booked?.name);

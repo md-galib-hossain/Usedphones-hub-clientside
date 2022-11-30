@@ -11,7 +11,9 @@ const SellerDashboard = () => {
   //   load my products by email query
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/products?email=${user?.email}`)
+      .get(
+        `https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/products?email=${user?.email}`
+      )
       .then((data) => {
         const products = data.data;
 
@@ -27,9 +29,12 @@ const SellerDashboard = () => {
     );
     if (agree) {
       // sending data to server
-      fetch(`http://localhost:5000/delete/${loadedproduct?._id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/delete/${loadedproduct?._id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {
@@ -44,13 +49,16 @@ const SellerDashboard = () => {
   };
   // handle advertise
   const handleadvertise = (loadedproduct) => {
-    fetch(`http://localhost:5000/advertise/${loadedproduct?._id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(loadedproduct),
-    })
+    fetch(
+      `https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/advertise/${loadedproduct?._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(loadedproduct),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {

@@ -57,18 +57,18 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   // load user from db
-  const url = `http://localhost:5000/user?email=${user?.email}`;
+  const url = `https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/user?email=${user?.email}`;
   const { data: dbUser = [], isLoading } = useQuery({
-    queryKey: ["user", user?.email],
+    queryKey: ["userdb", user?.email],
     queryFn: async () => {
       const res = await fetch(url);
       const data = await res.json();
       return data;
     },
   });
-  // if (loading || isLoading) {
-  //   return <progress className="progress w-56"></progress>;
-  // }
+  if (loading || isLoading) {
+    return <progress className="progress w-56"></progress>;
+  }
   const loadedUser = dbUser[0];
 
   const authInfo = {

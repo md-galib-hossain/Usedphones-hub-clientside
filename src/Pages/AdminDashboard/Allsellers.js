@@ -8,13 +8,16 @@ const Allsellers = ({ user, i, setDbusers, dbusers }) => {
 
   // handle verify
   const handleVerify = (user) => {
-    fetch(`http://localhost:5000/userverify/${user?._id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
+    fetch(
+      `https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/userverify/${user?._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setVerify("Yes");
@@ -30,13 +33,16 @@ const Allsellers = ({ user, i, setDbusers, dbusers }) => {
 
   // handle admin
   const handleAdmin = (user) => {
-    fetch(`http://localhost:5000/makeadmin/${user?._id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
+    fetch(
+      `https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/makeadmin/${user?._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setAdminrole("Admin");
@@ -51,9 +57,12 @@ const Allsellers = ({ user, i, setDbusers, dbusers }) => {
     const agree = window.confirm(`are you confirm to delete: ${user?.name}`);
     if (agree) {
       // sending data to server
-      fetch(`http://localhost:5000/deleteuser/${user?._id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/deleteuser/${user?._id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {
@@ -64,7 +73,7 @@ const Allsellers = ({ user, i, setDbusers, dbusers }) => {
         });
     }
   };
-  console.log(user);
+
   return (
     <tr>
       <th>{i}</th>
@@ -73,25 +82,43 @@ const Allsellers = ({ user, i, setDbusers, dbusers }) => {
       <td>
         <button
           onClick={() => handleVerify(user)}
-          disabled={user?.usertype == "Admin" || verify == "Yes" ? true : false}
-          className="btn btn-accent"
+          disabled={
+            user?.usertype == "Admin" ||
+            verify == "Yes" ||
+            loadedUser?.usertype !== "Admin"
+              ? true
+              : false
+          }
+          className="btn btn-outline btn-accent"
         >
           {user?.usertype == "Admin" || verify == "Yes"
-            ? "Already Verified"
+            ? "Verified"
             : "Verify Now"}
         </button>
       </td>
       <td>
         <button
           onClick={() => handleAdmin(user)}
-          disabled={adminrole == "Admin" && true}
-          className="btn btn-accent"
+          disabled={
+            adminrole == "Admin" || loadedUser?.usertype !== "Admin"
+              ? true
+              : false
+          }
+          className="btn btn-outline btn-accent"
         >
-          {adminrole == "Admin" ? "Already Admin" : "Make Admin"}
+          {adminrole == "Admin" ? "Admin" : "Make Admin"}
         </button>
       </td>
       <td>
-        <button onClick={() => handleDelete(user)} className="btn btn-warning">
+        <button
+          onClick={() => handleDelete(user)}
+          disabled={
+            adminrole == "Admin" || loadedUser?.usertype !== "Admin"
+              ? true
+              : false
+          }
+          className="btn btn-warning"
+        >
           Delete user
         </button>
       </td>

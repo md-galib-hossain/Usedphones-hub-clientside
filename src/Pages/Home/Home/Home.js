@@ -11,7 +11,8 @@ const Home = () => {
   const categories = useLoaderData();
 
   //   load advertised
-  const url = "http://localhost:5000/advertised";
+  const url =
+    "https://b612-used-products-resale-server-side-mdgalibhossain1.vercel.app/advertised";
   const { data: advertiseditems = [], isLoading } = useQuery({
     queryKey: ["advertised", user?.email],
     queryFn: async () => {
