@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Addproduct = () => {
+  const navigate = useNavigate();
   // react hook form
   const {
     register,
@@ -24,7 +25,7 @@ const Addproduct = () => {
   const handlemyform = (data) => {
     setData(data);
     const product = {
-      idno: data?.productid,
+      idno: parseInt(data?.productid),
       brand: data?.brandname,
       name: data?.devicename,
       picture: data.imagelink,
@@ -51,6 +52,7 @@ const Addproduct = () => {
       .then((data) => {
         console.log(data);
         if (data.acknowledged) {
+          navigate("/sellerdashboard");
           toast("You books have been added");
         }
       })

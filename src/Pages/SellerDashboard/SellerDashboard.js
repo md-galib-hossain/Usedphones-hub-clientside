@@ -42,6 +42,22 @@ const SellerDashboard = () => {
         });
     }
   };
+  // handle advertise
+  const handleadvertise = (loadedproduct) => {
+    fetch(`http://localhost:5000/advertise/${loadedproduct?._id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(loadedproduct),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast("Product advertised successfuly");
+        }
+      });
+  };
 
   if (loading) {
     return <progress className="progress w-56"></progress>;
@@ -89,7 +105,12 @@ const SellerDashboard = () => {
                   Delete Product
                 </Link>
 
-                <Link className="btn w-full btn-outline ">Advertise</Link>
+                <Link
+                  onClick={() => handleadvertise(loadedproduct)}
+                  className="btn w-full btn-outline "
+                >
+                  Advertise
+                </Link>
               </div>
             </div>
           </div>

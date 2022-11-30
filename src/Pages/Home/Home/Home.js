@@ -1,10 +1,30 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthProvider";
+import Advertised from "../../Advertised/Advertised";
 import Banner from "../../Banner/Banner";
 import Brands from "../../Brands/Brands";
 
 const Home = () => {
+  const { user, loadedUser, loading } = useContext(AuthContext);
   const categories = useLoaderData();
+
+  //   load advertised
+  const url = "http://localhost:5000/advertised";
+  const { data: advertiseditems = [], isLoading } = useQuery({
+    queryKey: ["advertised", user?.email],
+    queryFn: async () => {
+      const res = await fetch(url);
+      const advertised = await res.json();
+
+      return advertised;
+    },
+  });
+
+  if (loading || isLoading) {
+    return <progress className="progress w-56"></progress>;
+  }
 
   return (
     <div>
@@ -30,6 +50,19 @@ const Home = () => {
         </div>
       </div>
       <Brands></Brands>
+      {advertiseditems.length > 0 && (
+        <>
+          <h1 className="text-3xl my-12 font-bold">Advertised</h1>
+          <div className="grid lg:grid-cols-3 place-items-center  ">
+            {advertiseditems.map((advertiseditem) => (
+              <Advertised
+                key={advertiseditem?._id}
+                advertiseditem={advertiseditem}
+              ></Advertised>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

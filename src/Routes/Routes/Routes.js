@@ -37,19 +37,35 @@ export const router = createBrowserRouter([
       },
       {
         path: "/buyerdashboard",
-        element: <BuyerDashboard></BuyerDashboard>,
+        element: (
+          <PrivateRoute>
+            <BuyerDashboard></BuyerDashboard>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/sellerdashboard",
-        element: <SellerDashboard></SellerDashboard>,
+        element: (
+          <PrivateRoute>
+            <SellerDashboard></SellerDashboard>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/admindashboard",
-        element: <AdminDashboard></AdminDashboard>,
+        element: (
+          <PrivateRoute>
+            <AdminDashboard></AdminDashboard>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/payment/:id",
-        element: <Payment></Payment>,
+        element: (
+          <PrivateRoute>
+            <Payment></Payment>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/dashboard/payment/${params.id}`),
       },
@@ -65,7 +81,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addproduct",
-        element: <Addproduct></Addproduct>,
+        element: (
+          <PrivateRoute>
+            <Addproduct></Addproduct>
+          </PrivateRoute>
+        ),
       },
     ],
   },
