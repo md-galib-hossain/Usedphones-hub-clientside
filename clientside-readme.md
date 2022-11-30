@@ -1,5 +1,5 @@
-admin email: galibph@gmail.com
-admin password: galibph
+adminEmail: galibph@gmail.com
+adminPassword: galibph
 
 •My project name is used phones hub
 •I have used react router,react form hooks in my project
