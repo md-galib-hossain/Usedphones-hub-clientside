@@ -39,6 +39,7 @@ const Signup = () => {
       name: data.name,
       email: data.email,
       usertype: data.usertype,
+      isverified: "No",
     };
     // sending user details to backend
     fetch("http://localhost:5000/users", {

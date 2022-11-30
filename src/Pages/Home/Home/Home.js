@@ -7,7 +7,7 @@ import Banner from "../../Banner/Banner";
 import Brands from "../../Brands/Brands";
 
 const Home = () => {
-  const { user, loadedUser, loading } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const categories = useLoaderData();
 
   //   load advertised
@@ -32,7 +32,7 @@ const Home = () => {
       <div className="my-12">
         <h2 className="text-3xl my-8 font-bold">Categories</h2>
         <div className="grid lg:grid-cols-3 place-items-center gap-4 ">
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <div className="card w-96 bg-error text-primary-content">
               <div className="card-body">
                 <h2 className="card-title justify-center my-2">
@@ -50,11 +50,11 @@ const Home = () => {
         </div>
       </div>
       <Brands></Brands>
-      {advertiseditems.length > 0 && (
+      {advertiseditems?.length > 0 && (
         <>
           <h1 className="text-3xl my-12 font-bold">Advertised</h1>
           <div className="grid lg:grid-cols-3 place-items-center  ">
-            {advertiseditems.map((advertiseditem) => (
+            {advertiseditems?.map((advertiseditem) => (
               <Advertised
                 key={advertiseditem?._id}
                 advertiseditem={advertiseditem}

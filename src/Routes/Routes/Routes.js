@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
 import AdminDashboard from "../../Pages/AdminDashboard/AdminDashboard";
+import Allbuyers from "../../Pages/AdminDashboard/Allbuyers";
+import Allsellers from "../../Pages/AdminDashboard/Allsellers";
 import Blog from "../../Pages/Blog/Blog";
 import BuyerDashboard from "../../Pages/BuyerDashboard/BuyerDashboard";
 import Home from "../../Pages/Home/Home/Home";
@@ -51,6 +53,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      // all sellers & admin
       {
         path: "/admindashboard",
         element: (
@@ -58,6 +61,12 @@ export const router = createBrowserRouter([
             <AdminDashboard></AdminDashboard>
           </PrivateRoute>
         ),
+        loader: () => fetch("http://localhost:5000/sellers"),
+      },
+      {
+        path: "/allbuyers",
+        element: <Allbuyers></Allbuyers>,
+        loader: () => fetch(" http://localhost:5000/buyers"),
       },
       {
         path: "/dashboard/payment/:id",
