@@ -66,9 +66,13 @@ const AuthProvider = ({ children }) => {
       return data;
     },
   });
-  if (loading || isLoading) {
-    return <progress className="progress w-56"></progress>;
-  }
+  // if (loading || isLoading) {
+  //   return (
+  //     <div className="w-56 mx-auto">
+  //       <progress className="progress"></progress>
+  //     </div>
+  //   );
+  // }
   const loadedUser = dbUser[0];
 
   const authInfo = {
