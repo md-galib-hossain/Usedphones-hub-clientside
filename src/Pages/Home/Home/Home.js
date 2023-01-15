@@ -54,7 +54,7 @@ const Home = () => {
       {advertiseditems?.length > 0 && (
         <>
           <h1 className="text-3xl my-12 font-bold">Advertised</h1>
-          <div className="grid lg:grid-cols-3 place-items-center  ">
+          <div className="grid lg:grid-cols-3 place-items-center gap-y-4">
             {advertiseditems?.map((advertiseditem) => (
               <Advertised
                 key={advertiseditem?._id}
@@ -66,7 +66,7 @@ const Home = () => {
       )}
       <div>
         <h1 className="text-3xl my-12 font-bold">Buy Your Gadget in 3 Steps</h1>
-        <div className="grid lg:grid-cols-3 place-items-center">
+        <div className="grid lg:grid-cols-3 place-items-center gap-y-4">
           {/* card1 */}
           <div className="card w-96 bg-base-100 shadow-xl">
             <figure className="px-10 pt-10">
@@ -108,6 +108,73 @@ const Home = () => {
               <h2 className="card-title">Payment</h2>
               <p>Last step Easy online payment</p>
             </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h1 className="text-3xl my-12 font-bold">Why people trust us</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 place-items-center">
+          {/* edt */}
+          <div className="grid grid-cols-1 gap-y-6 my-8">
+            <div className="flex ... gap-x-2">
+              <img
+                src="https://i.ibb.co/J7py2h1/check-mark-1.png"
+                alt=""
+                className="flex-none h-10 w-10"
+              />
+              <div className="grow">
+                <h2 className="card-title">One-stop Solution</h2>
+                <p className="text-left">
+                  Sell, buy, repair or accessorize your smartphone
+                </p>
+              </div>
+            </div>
+            <div className="flex ... gap-x-2">
+              <img
+                src="https://i.ibb.co/J7py2h1/check-mark-1.png"
+                alt=""
+                className="flex-none h-10 w-10"
+              />
+              <div className="grow">
+                <h2 className="card-title">Trained Professionals</h2>
+                <p className="text-left">
+                  Trusted experts to help every step of the way
+                </p>
+              </div>
+            </div>
+            <div className="flex ... gap-x-2">
+              <img
+                src="https://i.ibb.co/J7py2h1/check-mark-1.png"
+                alt=""
+                className="flex-none h-10 w-10"
+              />
+              <div className="grow">
+                <h2 className="card-title">Quick & Hassle-free</h2>
+                <p className="text-left">
+                  Get mobile care in a click at your home or office
+                </p>
+              </div>
+            </div>
+            <div className="flex ... gap-x-2">
+              <img
+                src="https://i.ibb.co/J7py2h1/check-mark-1.png"
+                alt=""
+                className="flex-none h-10 w-10"
+              />
+              <div className="grow">
+                <h2 className="card-title">Premium Products</h2>
+                <p className="text-left">
+                  Certified, high quality products guranteed
+                </p>
+              </div>
+            </div>
+          </div>
+          {/* right */}
+          <div className="w-100 px-4">
+            <img
+              src="https://i.ibb.co/8Kw1d5G/Featured-Image-blog-768-566-px-2.png"
+              className="rounded-xl"
+            />
           </div>
         </div>
       </div>

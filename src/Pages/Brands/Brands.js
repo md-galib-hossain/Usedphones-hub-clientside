@@ -4,7 +4,7 @@ const Brands = () => {
   return (
     <div className="">
       <h1 className="text-3xl my-12 font-bold">Featured Brands</h1>
-      <div className="grid lg:grid-cols-3 place-items-center ">
+      <div className="grid lg:grid-cols-3 place-items-center gap-y-4">
         <div className="card w-96 bg-base-100 shadow-xl">
           <figure className="px-10 pt-10">
             <img
