@@ -64,6 +64,53 @@ const Home = () => {
           </div>
         </>
       )}
+      <div>
+        <h1 className="text-3xl my-12 font-bold">Buy Your Gadget in 3 Steps</h1>
+        <div className="grid lg:grid-cols-3 place-items-center">
+          {/* card1 */}
+          <div className="card w-96 bg-base-100 shadow-xl">
+            <figure className="px-10 pt-10">
+              <img
+                src="https://i.ibb.co/RzzkDf7/price-tag.png"
+                alt="Shoes"
+                className="rounded-xl h-20 w-20"
+              />
+            </figure>
+            <div className="card-body items-center text-center">
+              <h2 className="card-title">Check price</h2>
+              <p>Select your device</p>
+            </div>
+          </div>
+          {/* card2 */}
+          <div className="card w-96 bg-base-100 shadow-xl">
+            <figure className="px-10 pt-10">
+              <img
+                src="https://i.ibb.co/SsJtQzC/location.png"
+                alt="Shoes"
+                className="rounded-xl h-20 w-20"
+              />
+            </figure>
+            <div className="card-body items-center text-center">
+              <h2 className="card-title">Schedule Pickup</h2>
+              <p>Book product with your location</p>
+            </div>
+          </div>
+          {/* card3 */}
+          <div className="card w-96 bg-base-100 shadow-xl">
+            <figure className="px-10 pt-10">
+              <img
+                src="https://i.ibb.co/my293MT/credit-card.png"
+                alt="Shoes"
+                className="rounded-xl h-20 w-20"
+              />
+            </figure>
+            <div className="card-body items-center text-center">
+              <h2 className="card-title">Payment</h2>
+              <p>Last step Easy online payment</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
